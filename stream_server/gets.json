@@ -1,0 +1,96 @@
+{
+    "modelVersion": "2023-02-01-preview",
+    "astica": {
+        "request": "vision",
+        "requestType": "analyze",
+        "modelVersion": "2.1",
+        "api_qty": 26.425
+    },
+    "status": "success",
+    "caption_GPTS": "In this outdoor image, there is a German shepherd dog touching a person's stomach with its nose. The scene is set in a park-like area with tall trees and lush green grass covering the ground. The person, who appears to be the dog's owner or trainer, is standing upright facing the camera, wearing casual clothing. They seem to be focused on the dog and are interacting with it in a friendly manner. The German shepherd, likely a well-trained pet or possibly even a police dog, has a confident and attentive posture, with its ears perked up and its tail slightly wagging.\n\nThe dog is mostly black, with some brown markings on its face and legs, and has a thick coat of fur. The person, on the other hand, has light skin and is wearing dark clothing that contrasts with their skin tone. The background is filled with trees that have green leaves and thick trunks, suggesting that the image was taken during the warmer months. The lighting in the photo is natural, with sunlight filtering through the trees, creating a calm and serene atmosphere. The image captures a special moment between a person and their dog, showcasing the bond that can exist between humans and animals.",
+    "GPT_level": 1,
+    "caption": {
+        "text": "a dog touching a person's stomach",
+        "confidence": 0.47805866599082947
+    },
+    "objects": [
+        {
+            "name": "person",
+            "confidence": 0.695,
+            "rectangle": {
+                "x": 168,
+                "y": 3,
+                "w": 234,
+                "h": 470
+            }
+        },
+        {
+            "name": "German shepherd",
+            "confidence": 0.858,
+            "rectangle": {
+                "x": 310,
+                "y": 46,
+                "w": 253,
+                "h": 416
+            }
+        }
+    ],
+    "tags": [
+        {
+            "name": "outdoor",
+            "confidence": 0.9935810565948486
+        },
+        {
+            "name": "tree",
+            "confidence": 0.9685157537460327
+        },
+        {
+            "name": "mammal",
+            "confidence": 0.9678986668586731
+        },
+        {
+            "name": "animal",
+            "confidence": 0.9596232771873474
+        },
+        {
+            "name": "dog breed",
+            "confidence": 0.9371902942657471
+        },
+        {
+            "name": "dog",
+            "confidence": 0.9271774291992188
+        },
+        {
+            "name": "pet",
+            "confidence": 0.8828978538513184
+        },
+        {
+            "name": "police dog",
+            "confidence": 0.875120222568512
+        },
+        {
+            "name": "german shepherd",
+            "confidence": 0.8638195991516113
+        },
+        {
+            "name": "person",
+            "confidence": 0.847222089767456
+        },
+        {
+            "name": "ground",
+            "confidence": 0.7692511081695557
+        },
+        {
+            "name": "grass",
+            "confidence": 0.7488453388214111
+        },
+        {
+            "name": "black",
+            "confidence": 0.6969947814941406
+        }
+    ],
+    "metadata": {
+        "width": 729,
+        "height": 486
+    }
+}
