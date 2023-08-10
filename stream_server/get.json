@@ -1,0 +1,96 @@
+{
+    "modelVersion": "2023-02-01-preview",
+    "astica": {
+        "request": "vision",
+        "requestType": "analyze",
+        "modelVersion": "2.1",
+        "api_qty": 20.345
+    },
+    "status": "success",
+    "caption_GPTS": "In this image, a large black German shepherd is seen standing next to a person. The dog is leaning against the person's stomach with its front legs, appearing to give them a hug. The dog's fur is short and wavy, and its eyes are closed, conveying a sense of contentment. The person has their eyes closed and is smiling, their hands resting on the dog's back. The scene is outdoors, with trees and lush grass visible in the background. The sun is shining brightly, and the colors of the scene are vibrant and inviting. This image captures a moment of joy and connection between a person and their pet, a reminder of the special bond that can exist between two different species.",
+    "GPT_level": 0,
+    "caption": {
+        "text": "a dog touching a person's stomach",
+        "confidence": 0.47805866599082947
+    },
+    "objects": [
+        {
+            "name": "person",
+            "confidence": 0.695,
+            "rectangle": {
+                "x": 168,
+                "y": 3,
+                "w": 234,
+                "h": 470
+            }
+        },
+        {
+            "name": "German shepherd",
+            "confidence": 0.858,
+            "rectangle": {
+                "x": 310,
+                "y": 46,
+                "w": 253,
+                "h": 416
+            }
+        }
+    ],
+    "tags": [
+        {
+            "name": "outdoor",
+            "confidence": 0.9935809969902039
+        },
+        {
+            "name": "tree",
+            "confidence": 0.9685155153274536
+        },
+        {
+            "name": "mammal",
+            "confidence": 0.9678988456726074
+        },
+        {
+            "name": "animal",
+            "confidence": 0.9596236944198608
+        },
+        {
+            "name": "dog breed",
+            "confidence": 0.9371905326843262
+        },
+        {
+            "name": "dog",
+            "confidence": 0.9271774888038635
+        },
+        {
+            "name": "pet",
+            "confidence": 0.882898211479187
+        },
+        {
+            "name": "police dog",
+            "confidence": 0.8751202821731567
+        },
+        {
+            "name": "german shepherd",
+            "confidence": 0.8638197183609009
+        },
+        {
+            "name": "person",
+            "confidence": 0.8472217321395874
+        },
+        {
+            "name": "ground",
+            "confidence": 0.7692505717277527
+        },
+        {
+            "name": "grass",
+            "confidence": 0.7488430738449097
+        },
+        {
+            "name": "black",
+            "confidence": 0.6969944834709167
+        }
+    ],
+    "metadata": {
+        "width": 729,
+        "height": 486
+    }
+}
