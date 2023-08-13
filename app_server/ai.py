@@ -1,6 +1,7 @@
 import requests
 import base64
 import os
+import time
 import pytesseract
 from copy import deepcopy
 import openai
@@ -13,10 +14,27 @@ openai.api_key = os.getenv("OPENAI_KEY")
 class ChatBot:
     def __init__(self):
         self.message_history = []
-        self.description = {}
+        self.image = {}
+        self.rejected = False
 
-    def refresh(self):
-        self.get_description()
+        self.refresh_chat()
+
+    def image_ready(self):
+        if not self.image:
+            return (
+                False,
+                "No image has been taken yet. Press the camera button to take an image.",
+            )
+        age = time.time() - self.image["time"]
+        if not self.rejected and age > 120:
+            return (
+                False,
+                f"Current image was taken over {age//60} minutes ago, are you sure you want to use this image? Click the button again if you want to reuse it, click the camera button if you want to reset it!",
+            )
+        self.rejected = False
+        return (True, "Image is ready to be described!")
+
+    def refresh_chat(self):
         self.message_history = [
             {
                 "role": "system",
@@ -24,27 +42,33 @@ class ChatBot:
             }
         ]
 
-    def default(self):
+    def chat(self, prompt):
         self.message_history.append(
             {
                 "role": "user",
-                "content": "Please summarize this information accurately and descriptively in simple language with a couple sentences so that it is easy and quick for me to understand. This is not an art piece, this is just a picture from my camera, so please do not be creative or poetic, just describe my situation.",
+                "content": prompt,
             }
         )
-        return self.chat()
+        return self.chatgpt()
+
+    def default(self):
+        return self.chat(
+            "Please summarize this information accurately and descriptively in simple language with a couple sentences so that it is easy and quick for me to understand. This is not an art piece, this is just a picture from my camera, so please do not be creative or poetic, just describe my situation."
+        )
+
+    def risks(self):
+        return self.chat(
+            "Being a blind person, the world can be very dangerous. I need to be aware of my surroundings and any potential risks. Please describe any potential risks in the image."
+        )
 
     def start_message(self):
         string = (
             "I am a blind person. I have used a vision AI to come up with a description of what I am seeing. Here it is:\n"
-            + self.description["description"]
+            + self.image["description"]
             + "\n\n"
         )
         objects = ", ".join(
-            [
-                obj["name"]
-                for obj in self.description["objects"]
-                if obj["confidence"] > 0.7
-            ]
+            [obj["name"] for obj in self.image["objects"] if obj["confidence"] > 0.7]
         ).strip()
         if objects:
             string += (
@@ -52,25 +76,30 @@ class ChatBot:
                 + objects
                 + "\n\n"
             )
-        if self.description["ocr"]:
+        if self.image["ocr"]:
             string += (
                 "I have also used an OCR AI to read any text in the image. Here it is:\n"
-                + self.description["ocr"]
+                + self.image["ocr"]
                 + "\n\n"
             )
 
         return string.strip()
 
-    def chat(self):
+    def chatgpt(self):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo", messages=self.message_history
         )
-        return response.choices[0].message.content.strip()
+        reply = response.choices[0].message.content.strip()
+        print(reply)
+        self.message_history.append(
+            {
+                "role": "assistant",
+                "content": reply,
+            }
+        )
+        return reply
 
-    def describe(self):
-        import time
-
-        start = time.time()
+    def refresh_image(self):
         asticaAPI_timeout = 60
 
         asticaAPI_endpoint = "https://astica.ai:9141/vision/describe"
@@ -104,13 +133,14 @@ class ChatBot:
                 "status": "error",
                 "error": "Failed to connect to the API.",
             }
-        print(f"Astica API call took {time.time() - start} seconds")
 
         text = pytesseract.image_to_string("pic.jpg").strip()
         asticaAPI_result["ocr"] = text
         asticaAPI_result["description"] = asticaAPI_result.pop("caption_GPTS")
+        asticaAPI_result["time"] = time.time()
+        print(asticaAPI_result)
 
-        self.description = deepcopy(asticaAPI_result)
+        self.image = deepcopy(asticaAPI_result)
 
 
 ChatBot().describe()
